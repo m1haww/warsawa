@@ -4,6 +4,7 @@ import 'package:provider/provider.dart'; // Import Provider
 import 'package:warsawa/pages/CustomAppBar.dart';
 import 'package:warsawa/utils/GoalPage.dart';
 import 'package:warsawa/utils/appprovider.dart';
+import 'package:warsawa/utils/challenges.dart';
 
 class activities extends StatelessWidget {
   @override
@@ -125,34 +126,72 @@ class activities extends StatelessWidget {
                   }
 
                   return ListView.builder(
-                      shrinkWrap: true,
-                      physics:
-                          BouncingScrollPhysics(), // Allows smooth scrolling
-                      itemCount: appProvider.goalList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final goal = appProvider.goalList[index];
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: appProvider.goalList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final goal = appProvider.goalList[index];
 
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.pink.shade50,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            'Goal: ${goal.goalText}',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                      return Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Goal: ${goal.goalText}',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                        );
-                      });
+                          ],
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
               const SizedBox(height: 20),
+
+              // Set challenges Row Section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.play_arrow,
+                    size: 30,
+                    color: Colors.pink,
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => Challenges(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade300,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        "Set challenges",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
