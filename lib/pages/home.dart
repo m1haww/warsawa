@@ -1,110 +1,167 @@
 import 'package:flutter/material.dart';
-import 'package:warsawa/pages/discover.dart';
+import 'package:warsawa/pages/CustomAppBar.dart';
 
-class home extends StatelessWidget {
-  final String title;
-  final Widget child;
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
-  const home({
-    required this.title,
-    required this.child,
-    Key? key,
-  }) : super(key: key);
+class _HomeState extends State<Home> {
+  bool _showText = false;
+  bool _showMotivation = false; // For Motivation content toggle
 
   @override
   Widget build(BuildContext context) {
+    const String title = "Warsawa";
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 16.0),
-          child: Text(
-            "W",
-            style: TextStyle(
-              color: Colors.pink,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+      appBar: const CustomAppBar(title: title),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _showText = !_showText;
+                });
+              },
+              child: buildCustomRow("Daily Overview"),
             ),
+            if (_showText) ...[const SizedBox(height: 20), buildTextSection()],
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _showMotivation =
+                      !_showMotivation; // Toggle Motivation content
+                });
+              },
+              child: buildCustomRow("Daily Motivation"),
+            ),
+            if (_showMotivation) ...[
+              const SizedBox(height: 20),
+              buildMotivationSection(),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Function to create each row with an icon, text, and arrow
+  Widget buildCustomRow(String label) {
+    final height = MediaQuery.of(context).size.height;
+
+    return Row(
+      children: [
+        const Icon(
+          Icons.circle,
+          size: 30,
+          color: Colors.blue,
+        ),
+        const SizedBox(width: 20),
+        Container(
+          width: height * 0.4,
+          height: height * 0.06,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(color: Colors.blue),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  label,
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
+                ),
+              ),
+              const Icon(
+                Icons.arrow_back_ios,
+                size: 20,
+                color: Colors.blue,
+              ),
+            ],
           ),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(color: Colors.black, fontSize: 24),
-        ),
-        actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            color: Colors.pink.shade100,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            onSelected: (value) => _navigateTo(context, value),
-            itemBuilder: (context) => [
-              _buildPopupMenuItem('Home', 'Home'),
-              _buildPopupMenuItem('Discover', 'Discover'),
-              _buildPopupMenuItem('Activities', 'Activities'),
-              _buildPopupMenuItem('Resources', 'Resources'),
-              _buildPopupMenuItem('Profile', 'Profile'),
-              _buildPopupMenuItem('Settings', 'Settings'),
-            ],
+      ],
+    );
+  }
+
+  Widget buildTextSection() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.blue[50],
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
-      body: child,
-    );
-  }
-
-  PopupMenuItem<String> _buildPopupMenuItem(String value, String title) {
-    return PopupMenuItem<String>(
-      value: value,
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildInfoItem("Steps taken", Icons.directions_walk),
+          const SizedBox(height: 16),
+          _buildInfoItem("Mood score", Icons.sentiment_satisfied_alt),
+          const SizedBox(height: 16),
+          _buildInfoItem("Hydration level", Icons.water_damage),
+        ],
       ),
     );
   }
 
-  void _navigateTo(BuildContext context, String value) {
-    switch (value) {
-      case 'Home':
-        Navigator.pop(context);
+  // Motivation specific section
+  Widget buildMotivationSection() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.green[50],
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.green.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildInfoItem("Motivation Level", Icons.star),
+          const SizedBox(height: 16),
+          _buildInfoItem("Inspiration", Icons.lightbulb),
+          const SizedBox(height: 16),
+          _buildInfoItem("Focus", Icons.forum),
+        ],
+      ),
+    );
+  }
 
-        break;
-      case 'Discover':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Discover()),
-        );
-        break;
-      case 'Activities':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Discover()),
-        );
-        break;
-      case 'Resources':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Discover()),
-        );
-        break;
-      case 'Profile':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Discover()),
-        );
-        break;
-      case 'Settings':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Discover()),
-        );
-        break;
-    }
+  Widget _buildInfoItem(String label, IconData icon) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.blue, size: 24),
+        const SizedBox(width: 10),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Colors.blue[700],
+          ),
+        ),
+      ],
+    );
   }
 }
