@@ -14,12 +14,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     const String title = "Warsawa";
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: const Color(0xff6A1E55),
       appBar: const CustomAppBar(title: title),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(width * 0.05),
         child: Column(
           children: [
             GestureDetector(
@@ -28,10 +29,13 @@ class _HomeState extends State<Home> {
                   _showText = !_showText;
                 });
               },
-              child: buildCustomRow("Daily Overview"),
+              child: buildCustomRow("Daily Overview", width, height),
             ),
-            if (_showText) ...[const SizedBox(height: 20), buildTextSection()],
-            const SizedBox(height: 20),
+            if (_showText) ...[
+              SizedBox(height: height * 0.02),
+              buildTextSection(width, height),
+            ],
+            SizedBox(height: height * 0.02),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -39,11 +43,11 @@ class _HomeState extends State<Home> {
                       !_showMotivation; // Toggle Motivation content
                 });
               },
-              child: buildCustomRow("Daily Motivation"),
+              child: buildCustomRow("Daily Motivation", width, height),
             ),
             if (_showMotivation) ...[
-              const SizedBox(height: 20),
-              buildMotivationSection(),
+              SizedBox(height: height * 0.02),
+              buildMotivationSection(width, height),
             ],
           ],
         ),
@@ -52,112 +56,114 @@ class _HomeState extends State<Home> {
   }
 
   // Function to create each row with an icon, text, and arrow
-  Widget buildCustomRow(String label) {
-    final height = MediaQuery.of(context).size.height;
-
+  Widget buildCustomRow(String label, double width, double height) {
     return Row(
       children: [
-        const Icon(
+        Icon(
           Icons.circle,
-          size: 30,
+          size: height * 0.04,
           color: Colors.black,
         ),
-        const SizedBox(width: 20),
-        Container(
-          width: height * 0.4,
-          height: height * 0.06,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: Colors.pink),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  label,
-                  style: const TextStyle(fontSize: 16, color: Colors.black),
+        SizedBox(width: width * 0.05),
+        Expanded(
+          child: Container(
+            height: height * 0.06,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(color: Colors.pink),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(width * 0.02),
+                  child: Text(
+                    label,
+                    style:
+                        TextStyle(fontSize: height * 0.02, color: Colors.black),
+                  ),
                 ),
-              ),
-              const Icon(
-                Icons.arrow_back_ios,
-                size: 20,
-                color: Colors.black,
-              ),
-            ],
+                Icon(
+                  Icons.arrow_back_ios,
+                  size: height * 0.025,
+                  color: Colors.black,
+                ),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget buildTextSection() {
+  Widget buildTextSection(double width, double height) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(width * 0.05),
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             color: Colors.black,
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
+            spreadRadius: width * 0.005,
+            blurRadius: width * 0.02,
+            offset: Offset(0, height * 0.003),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoItem("Steps taken", Icons.directions_walk),
-          const SizedBox(height: 16),
-          _buildInfoItem("Mood score", Icons.sentiment_satisfied_alt),
-          const SizedBox(height: 16),
-          _buildInfoItem("Hydration level", Icons.water_damage),
+          _buildInfoItem("Steps taken", Icons.directions_walk, width, height),
+          SizedBox(height: height * 0.02),
+          _buildInfoItem(
+              "Mood score", Icons.sentiment_satisfied_alt, width, height),
+          SizedBox(height: height * 0.02),
+          _buildInfoItem("Hydration level", Icons.water_damage, width, height),
         ],
       ),
     );
   }
 
   // Motivation specific section
-  Widget buildMotivationSection() {
+  Widget buildMotivationSection(double width, double height) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(width * 0.05),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 236, 169, 191),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
             color: Colors.green.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
+            spreadRadius: width * 0.005,
+            blurRadius: width * 0.02,
+            offset: Offset(0, height * 0.003),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoItem("Motivation Level", Icons.star),
-          const SizedBox(height: 16),
-          _buildInfoItem("Inspiration", Icons.lightbulb),
-          const SizedBox(height: 16),
-          _buildInfoItem("Focus", Icons.forum),
+          _buildInfoItem("Motivation Level", Icons.star, width, height),
+          SizedBox(height: height * 0.02),
+          _buildInfoItem("Inspiration", Icons.lightbulb, width, height),
+          SizedBox(height: height * 0.02),
+          _buildInfoItem("Focus", Icons.forum, width, height),
         ],
       ),
     );
   }
 
-  Widget _buildInfoItem(String label, IconData icon) {
+  Widget _buildInfoItem(
+      String label, IconData icon, double width, double height) {
     return Row(
       children: [
-        Icon(icon, color: Colors.pink, size: 24),
-        const SizedBox(width: 10),
+        Icon(icon, color: Colors.pink, size: height * 0.03),
+        SizedBox(width: width * 0.02),
         Text(
           label,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: height * 0.02,
             fontWeight: FontWeight.w600,
             color: Colors.pink,
           ),

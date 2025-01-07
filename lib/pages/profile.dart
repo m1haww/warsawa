@@ -20,6 +20,7 @@ class _ProfileState extends State<Profile> {
 
   File? _image;
 
+  // Extracted function to check if the form is valid
   bool isFormValid() {
     return pictureController.text.isNotEmpty &&
         nameController.text.isNotEmpty &&
@@ -34,6 +35,47 @@ class _ProfileState extends State<Profile> {
       setState(() {
         _image = File(pickedFile.path);
       });
+    }
+  }
+
+  void _saveProfile() {
+    if (isFormValid()) {
+      final String name = nameController.text;
+      final String preferences = preferencesController.text;
+      final String picturePath =
+          _image != null ? _image!.path : 'No image selected';
+
+      // Debugging output
+      print('Profile Saved!');
+      print('Name: $name');
+      print('Preferences: $preferences');
+      print('Image Path: $picturePath');
+
+      // Show a message confirming that the profile is saved
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Profile saved!\nName: $name\nPreferences: $preferences\nImage: $picturePath'),
+          duration:
+              Duration(seconds: 3), // Optional duration for message visibility
+        ),
+      );
+
+      // Optionally, clear the fields after saving
+      setState(() {
+        nameController.clear();
+        preferencesController.clear();
+        pictureController.clear();
+        _image = null;
+      });
+    } else {
+      // If the form is not valid, debug message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill in all fields before saving!'),
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 
@@ -56,11 +98,14 @@ class _ProfileState extends State<Profile> {
                     child: _image != null
                         ? Image.file(
                             _image!,
+                            width: 100, // Adjust image size
+                            height: 100,
+                            fit: BoxFit.cover,
                           )
                         : Image.asset(
                             "images/profile.webp",
-                            width: 90,
-                            height: 90,
+                            width: 100, // Adjust image size
+                            height: 100,
                           ),
                   ),
                 ),
@@ -68,36 +113,30 @@ class _ProfileState extends State<Profile> {
                 buildCustomContainer("Name and Surname", nameController),
                 const SizedBox(height: 10),
                 buildCustomContainer("Preferences", preferencesController),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: ElevatedButton(
+                    onPressed: _saveProfile,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Save Profile',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.pinkAccent,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-          decoration: BoxDecoration(
-            color: isFormValid() ? Colors.pink : Colors.black,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: TextButton(
-            onPressed: isFormValid()
-                ? () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Profile saved!')),
-                    );
-                  }
-                : null,
-            child: const Text(
-              "Save",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
             ),
           ),
         ),
@@ -105,7 +144,6 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  // Custom container widget with TextField
   Widget buildCustomContainer(String text, TextEditingController controller) {
     return Container(
       width: double.infinity,

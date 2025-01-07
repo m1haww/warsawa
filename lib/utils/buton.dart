@@ -9,11 +9,15 @@ class buton extends StatefulWidget {
 class _butonState extends State<buton> {
   @override
   Widget build(BuildContext context) {
+    // Get screen size
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Color(0xff6A1E55),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(screenWidth * 0.04), // 4% of screen width
           child: Column(
             children: [
               // Horizontally scrollable list of techniques
@@ -21,15 +25,20 @@ class _butonState extends State<buton> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _buildTechniqueCard('Breathing', Colors.pink),
-                    _buildTechniqueCard('Meditation', Colors.pink),
-                    _buildTechniqueCard('Body Scan', Colors.pink),
-                    _buildTechniqueCard('Mindful Walking', Colors.pink),
-                    _buildTechniqueCard('Visualization', Colors.pink),
+                    _buildTechniqueCard(
+                        'Breathing', Colors.pink, screenWidth, screenHeight),
+                    _buildTechniqueCard(
+                        'Meditation', Colors.pink, screenWidth, screenHeight),
+                    _buildTechniqueCard(
+                        'Body Scan', Colors.pink, screenWidth, screenHeight),
+                    _buildTechniqueCard('Mindful Walking', Colors.pink,
+                        screenWidth, screenHeight),
+                    _buildTechniqueCard('Visualization', Colors.pink,
+                        screenWidth, screenHeight),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.02), // 2% of screen height
 
               // Vertically scrollable list of techniques
               Expanded(
@@ -44,7 +53,8 @@ class _butonState extends State<buton> {
                         'Mindful Walking',
                         'Visualization'
                       ].map((technique) {
-                        return _buildVerticalTechniqueCard(technique);
+                        return _buildVerticalTechniqueCard(
+                            technique, screenWidth, screenHeight);
                       }).toList(),
                     ],
                   ),
@@ -57,7 +67,8 @@ class _butonState extends State<buton> {
     );
   }
 
-  Widget _buildTechniqueCard(String technique, Color color) {
+  Widget _buildTechniqueCard(
+      String technique, Color color, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -69,9 +80,10 @@ class _butonState extends State<buton> {
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        width: 160,
-        height: 100,
+        margin: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.02), // 2% of screen width
+        width: screenWidth * 0.4, // 40% of screen width
+        height: screenHeight * 0.15, // 15% of screen height
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [color.withOpacity(0.8), color],
@@ -109,7 +121,8 @@ class _butonState extends State<buton> {
     );
   }
 
-  Widget _buildVerticalTechniqueCard(String technique) {
+  Widget _buildVerticalTechniqueCard(
+      String technique, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -120,8 +133,9 @@ class _butonState extends State<buton> {
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.symmetric(
+            vertical: screenHeight * 0.02), // 2% of screen height
+        padding: EdgeInsets.all(screenWidth * 0.05), // 5% of screen width
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(16),
@@ -140,7 +154,7 @@ class _butonState extends State<buton> {
               size: 32,
               color: Colors.white,
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: screenWidth * 0.04), // 4% of screen width
             Expanded(
               child: Text(
                 technique,

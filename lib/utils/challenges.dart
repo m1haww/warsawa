@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Import provider
 import 'package:warsawa/model/challenge.dart';
+import 'package:warsawa/pages/activities.dart';
 import 'package:warsawa/utils/Challenge_Provider.dart'; // Import ChallengeProvider
 import 'package:warsawa/model/challenge_page.dart';
 
@@ -33,6 +34,15 @@ class _ChallengesState extends State<Challenges> {
     return Scaffold(
       backgroundColor: Color(0xff6A1E55),
       appBar: AppBar(
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => activities(),
+                  ));
+            },
+            child: Icon(Icons.arrow_back_ios)),
         title: const Text(
           'Create a Challenge',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -95,7 +105,7 @@ class _ChallengesState extends State<Challenges> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF34517D),
+                  color: Colors.pinkAccent,
                 ),
               ),
               const SizedBox(height: 10),
@@ -127,7 +137,7 @@ class _ChallengesState extends State<Challenges> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF34517D),
+                    backgroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
@@ -142,7 +152,7 @@ class _ChallengesState extends State<Challenges> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.pinkAccent,
                     ),
                   ),
                 ),
@@ -154,7 +164,7 @@ class _ChallengesState extends State<Challenges> {
     );
   }
 
-  // Helper method to build text fields
+  // Helper method to build text fields with pink accent outline
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -169,6 +179,8 @@ class _ChallengesState extends State<Challenges> {
         hintText: hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+              color: Colors.pinkAccent, width: 2), // Pink accent border
         ),
         filled: true,
         fillColor: const Color(0xFFEEF0FF),
@@ -176,7 +188,7 @@ class _ChallengesState extends State<Challenges> {
     );
   }
 
-  // Helper method to build dropdown fields
+  // Helper method to build dropdown fields with pink accent outline
   Widget _buildDropdown({
     required String label,
     required String value,
@@ -189,6 +201,8 @@ class _ChallengesState extends State<Challenges> {
         labelText: label,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+              color: Colors.pinkAccent, width: 2), // Pink accent border
         ),
         filled: true,
         fillColor: const Color(0xFFEEF0FF),
@@ -213,7 +227,7 @@ class _ChallengesState extends State<Challenges> {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF34517D),
+            color: Colors.pinkAccent,
           ),
         ),
         const SizedBox(height: 10),

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Import Provider
+import 'package:provider/provider.dart';
 import 'package:warsawa/pages/CustomAppBar.dart';
 import 'package:warsawa/utils/GoalPage.dart';
 import 'package:warsawa/utils/appprovider.dart';
@@ -11,6 +11,8 @@ class activities extends StatelessWidget {
   Widget build(BuildContext context) {
     final String title = "Warsawa";
     final goalList = Provider.of<AppProvider>(context).goalList;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Color(0xff6A1E55),
@@ -37,11 +39,12 @@ class activities extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.02), // 2% of screen height
 
               // Set Your Goals Section
               Container(
-                padding: const EdgeInsets.all(16),
+                padding:
+                    EdgeInsets.all(screenWidth * 0.04), // 4% of screen width
                 decoration: BoxDecoration(
                   color: Colors.pink.shade100,
                   borderRadius: BorderRadius.circular(16),
@@ -57,7 +60,8 @@ class activities extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(
+                        height: screenHeight * 0.01), // 1% of screen height
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
@@ -83,23 +87,26 @@ class activities extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(
+                  height: screenHeight * 0.03), // Increased spacing after goals
 
               // Challenge Cards Section
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: screenWidth, // Full screen width
                 child: Column(
                   children: [
                     _buildChallengeCard(
                       title: "30-Day Step Challenge:",
                       description: "Walk 10,000 steps daily",
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(
+                        height: screenHeight * 0.02), // 2% of screen height
                     _buildChallengeCard(
                       title: "Plank Challenge:",
                       description: "Increase your plank hold time each day",
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(
+                        height: screenHeight * 0.02), // 2% of screen height
                     _buildChallengeCard(
                       title: "No Sugar Challenge:",
                       description: "Avoid added sugars for 7, 14, or 30 days",
@@ -107,9 +114,10 @@ class activities extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(
+                  height: screenHeight *
+                      0.02), // Increased spacing after challenges
 
-              // Goal List Section
               Consumer<AppProvider>(
                 builder: (context, appProvider, child) {
                   if (appProvider.goalList.isEmpty) {
@@ -132,32 +140,41 @@ class activities extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final goal = appProvider.goalList[index];
 
-                      return Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Goal: ${goal.goalText}',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                      return Column(
+                        children: [
+                          Container(
+                            width: screenWidth, // Full screen width
+                            padding: EdgeInsets.all(
+                                screenWidth * 0.04), // 4% of screen width
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                          ],
-                        ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Goal: ${goal.goalText}',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                              height: screenHeight *
+                                  0.02), // Adds space between the containers
+                        ],
                       );
                     },
                   );
                 },
               ),
-              const SizedBox(height: 20),
+
+              SizedBox(height: screenHeight * 0.02), // 2% of screen height
 
               // Set challenges Row Section
               Row(
@@ -168,26 +185,24 @@ class activities extends StatelessWidget {
                     size: 30,
                     color: Colors.pink,
                   ),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => Challenges(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pink.shade300,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => Challenges(),
                         ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink.shade300,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Text(
-                        "Set challenges",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    ),
+                    child: const Text(
+                      "Set challenges",
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ],

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:warsawa/pages/activities.dart';
 import 'package:warsawa/pages/discover.dart';
@@ -12,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Color(0xff6A1E55),
       elevation: 0,
       centerTitle: true,
       leading: const Padding(
@@ -77,26 +78,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       case 'Home':
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          CupertinoPageRoute(builder: (context) => Home()),
         );
         break;
       case 'Discover':
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Discover()),
+          CupertinoPageRoute(builder: (context) => const discover()),
         );
         break;
       case 'Activities':
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => activities()),
+          CupertinoPageRoute(builder: (context) => activities()),
         );
         break;
 
       case 'Profile':
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Profile()),
+          CupertinoPageRoute(builder: (context) => const Profile()),
         );
         break;
     }
