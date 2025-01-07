@@ -10,26 +10,23 @@ class _butonState extends State<buton> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff6A1E55),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               // Horizontally scrollable list of techniques
-              Container(
-                height: 120,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      _buildTechniqueCard('Breathing', Colors.blueAccent),
-                      _buildTechniqueCard('Meditation', Colors.greenAccent),
-                      _buildTechniqueCard('Body Scan', Colors.redAccent),
-                      _buildTechniqueCard(
-                          'Mindful Walking', Colors.deepPurpleAccent),
-                      _buildTechniqueCard('Visualization', Colors.orangeAccent),
-                    ],
-                  ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildTechniqueCard('Breathing', Colors.pink),
+                    _buildTechniqueCard('Meditation', Colors.pink),
+                    _buildTechniqueCard('Body Scan', Colors.pink),
+                    _buildTechniqueCard('Mindful Walking', Colors.pink),
+                    _buildTechniqueCard('Visualization', Colors.pink),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -126,11 +123,7 @@ class _butonState extends State<buton> {
         margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.indigo.shade300, Colors.blue.shade300],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: Colors.black,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(

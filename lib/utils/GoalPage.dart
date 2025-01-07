@@ -33,8 +33,9 @@ class _GoalPageState extends State<GoalPage> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Color(0xff6A1E55),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xff6A1E55),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -44,7 +45,6 @@ class _GoalPageState extends State<GoalPage> {
         centerTitle: true,
         title: Text("Add new goal"),
       ),
-      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

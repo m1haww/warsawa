@@ -3,8 +3,6 @@ import 'package:warsawa/pages/activities.dart';
 import 'package:warsawa/pages/discover.dart';
 import 'package:warsawa/pages/home.dart';
 import 'package:warsawa/pages/profile.dart';
-import 'package:warsawa/pages/resources.dart';
-import 'package:warsawa/pages/settings.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -44,9 +42,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             _buildPopupMenuItem('Home', 'Home'),
             _buildPopupMenuItem('Discover', 'Discover'),
             _buildPopupMenuItem('Activities', 'Activities'),
-            _buildPopupMenuItem('Resources', 'Resources'),
             _buildPopupMenuItem('Profile', 'Profile'),
-            _buildPopupMenuItem('Settings', 'Settings'),
           ],
         ),
       ],
@@ -96,22 +92,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           MaterialPageRoute(builder: (context) => activities()),
         );
         break;
-      case 'Resources':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => resources()),
-        );
-        break;
+
       case 'Profile':
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const Profile()),
-        );
-        break;
-      case 'Settings':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => settings()),
         );
         break;
     }

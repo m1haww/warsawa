@@ -16,6 +16,7 @@ class _HomeState extends State<Home> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: const Color(0xff6A1E55),
       appBar: const CustomAppBar(title: title),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -59,7 +60,7 @@ class _HomeState extends State<Home> {
         const Icon(
           Icons.circle,
           size: 30,
-          color: Colors.blue,
+          color: Colors.black,
         ),
         const SizedBox(width: 20),
         Container(
@@ -67,7 +68,7 @@ class _HomeState extends State<Home> {
           height: height * 0.06,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: Colors.blue),
+            border: Border.all(color: Colors.pink),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +83,7 @@ class _HomeState extends State<Home> {
               const Icon(
                 Icons.arrow_back_ios,
                 size: 20,
-                color: Colors.blue,
+                color: Colors.black,
               ),
             ],
           ),
@@ -95,14 +96,14 @@ class _HomeState extends State<Home> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.blue[50],
+        color: Colors.black,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.2),
+            color: Colors.black,
             spreadRadius: 2,
             blurRadius: 5,
-            offset: const Offset(0, 3),
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -124,7 +125,7 @@ class _HomeState extends State<Home> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.green[50],
+        color: const Color.fromARGB(255, 236, 169, 191),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -151,14 +152,14 @@ class _HomeState extends State<Home> {
   Widget _buildInfoItem(String label, IconData icon) {
     return Row(
       children: [
-        Icon(icon, color: Colors.blue, size: 24),
+        Icon(icon, color: Colors.pink, size: 24),
         const SizedBox(width: 10),
         Text(
           label,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            color: Colors.blue[700],
+            color: Colors.pink,
           ),
         ),
       ],

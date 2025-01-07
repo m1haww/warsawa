@@ -13,7 +13,7 @@ class activities extends StatelessWidget {
     final goalList = Provider.of<AppProvider>(context).goalList;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xff6A1E55),
       appBar: CustomAppBar(title: title),
       body: SingleChildScrollView(
         child: Padding(

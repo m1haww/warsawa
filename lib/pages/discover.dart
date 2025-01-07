@@ -15,6 +15,7 @@ class _DiscoverState extends State<Discover> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff6A1E55),
       appBar: CustomAppBar(title: title),
       body: SafeArea(
         child: Padding(
@@ -23,7 +24,21 @@ class _DiscoverState extends State<Discover> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Row(
-                children: [Icon(Icons.search), Text("Discover")],
+                children: [
+                  Icon(
+                    Icons.search,
+                    size: 30,
+                    color: Colors.pinkAccent,
+                  ),
+                  Text(
+                    "Discover",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 20,

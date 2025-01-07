@@ -12,7 +12,7 @@ class _resourcesState extends State<resources> {
     final String title = "Warsawa";
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xff6A1E55),
       appBar: CustomAppBar(title: title),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -30,9 +30,10 @@ class _informationbutonState extends State<informationbuton> {
         'No details available for this technique.';
 
     return Scaffold(
+      backgroundColor: Color(0xff6A1E55),
       appBar: AppBar(
         title: Text('${widget.techniqueName} Details'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Color(0xff6A1E55),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -42,7 +43,7 @@ class _informationbutonState extends State<informationbuton> {
             const Icon(
               Icons.info_outline,
               size: 100,
-              color: Colors.blueAccent,
+              color: Colors.pink,
             ),
             const SizedBox(height: 20),
             Text(
@@ -56,9 +57,7 @@ class _informationbutonState extends State<informationbuton> {
             Text(
               detailText,
               style: const TextStyle(
-                fontSize: 18,
-                height: 1.5,
-              ),
+                  fontSize: 18, height: 1.5, color: Colors.white),
             ),
           ],
         ),

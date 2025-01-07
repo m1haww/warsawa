@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:warsawa/utils/GoalPage.dart';
-import 'package:warsawa/utils/note.dart';
 
 class AppProvider extends ChangeNotifier {
   final List<Goal> goalList = [];
