@@ -140,7 +140,11 @@ class _GoalPageState extends State<GoalPage> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.pushReplacement(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) => activities(),
+                                    ));
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.red,
